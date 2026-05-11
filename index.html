@@ -8,12 +8,12 @@
   <title>Animaciones LogoArtCR</title>
   <meta name="description" content="Ver Animaciones">
 
-  <!-- Open Graph (Vista previa en WhatsApp, Facebook, etc.) -->
+  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Animaciones LogoArtCR">
   <meta property="og:description" content="Ver Animaciones">
-  <meta property="og:url" content="https://logoartcr.github.io/Proyectos/">
-  <meta property="og:image" content="https://logoartcr.github.io/Proyectos/Faviconlogoart.png">
+  <meta property="og:url" content="https://logoartcr.github.io/Animaciones/">
+  <meta property="og:image" content="https://logoartcr.github.io/Animaciones/Faviconlogoart.png">
 
   <style>
     html, body {
@@ -40,14 +40,29 @@
   <iframe id="mi-catalogo" src=""></iframe>
 
   <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const idProyecto = (urlParams.get('id') || '').trim();
+    var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzdVb9aKMdXTXM0cJfUffQO5IJutSYWoaGiz8JzOcOB5vd6bKIgQ8NY1JOgvXIjeRmr/exec";
 
-    let urlFinal = "https://script.google.com/macros/s/AKfycbzdVb9aKMdXTXM0cJfUffQO5IJutSYWoaGiz8JzOcOB5vd6bKIgQ8NY1JOgvXIjeRmr/exec";
+    function obtenerParametro(nombre) {
+      var parametros = new URLSearchParams(window.location.search);
+      return String(parametros.get(nombre) || '').trim();
+    }
 
-    if (idProyecto) {
-      const conector = urlFinal.includes('?') ? '&' : '?';
-      urlFinal += conector + "id=" + encodeURIComponent(idProyecto);
+    function agregarParametro(url, nombre, valor) {
+      if (!valor) return url;
+
+      var conector = url.indexOf('?') === -1 ? '?' : '&';
+      return url + conector + encodeURIComponent(nombre) + '=' + encodeURIComponent(valor);
+    }
+
+    var idAnimacion = obtenerParametro('id');
+    var idCategoria = obtenerParametro('cat');
+
+    var urlFinal = SCRIPT_URL;
+
+    if (idAnimacion) {
+      urlFinal = agregarParametro(urlFinal, 'id', idAnimacion);
+    } else if (idCategoria) {
+      urlFinal = agregarParametro(urlFinal, 'cat', idCategoria);
     }
 
     document.getElementById('mi-catalogo').src = urlFinal;
