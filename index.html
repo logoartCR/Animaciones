@@ -8,6 +8,7 @@
   <title>Animaciones LogoArtCR</title>
   <meta name="description" content="Ver Animaciones">
 
+  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Animaciones LogoArtCR">
   <meta property="og:description" content="Ver Animaciones">
@@ -39,78 +40,22 @@
   <iframe id="mi-catalogo" src=""></iframe>
 
   <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyvE_7CjFKrlJC4XOSxAxsGEUuP9qux_dqKQRXYkpftS0IqP4jkS6hrKpxGw8Iy6KZE/exec";
+
     const urlParams = new URLSearchParams(window.location.search);
 
-    const idProyecto = (urlParams.get('id') || '').trim();
-    const idCategoria = (urlParams.get('cat') || '').trim();
+    const idProyecto = String(urlParams.get("id") || "").trim();
+    const idCategoria = String(urlParams.get("cat") || "").trim();
 
-    let urlFinal = "<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <link rel="icon" type="image/png" href="Faviconlogoart.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-  <title>Animaciones LogoArtCR</title>
-  <meta name="description" content="Ver Animaciones">
-
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Animaciones LogoArtCR">
-  <meta property="og:description" content="Ver Animaciones">
-  <meta property="og:url" content="https://logoartcr.github.io/Animaciones/">
-  <meta property="og:image" content="https://logoartcr.github.io/Animaciones/Faviconlogoart.png">
-
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background-color: #f4f4f4;
-    }
-
-    #mi-catalogo {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-  </style>
-</head>
-<body>
-
-  <iframe id="mi-catalogo" src=""></iframe>
-
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-
-    const idProyecto = (urlParams.get('id') || '').trim();
-    const idCategoria = (urlParams.get('cat') || '').trim();
-
-    let urlFinal = "https://script.google.com/macros/s/AKfycbzdVb9aKMdXTXM0cJfUffQO5IJutSYWoaGiz8JzOcOB5vd6bKIgQ8NY1JOgvXIjeRmr/exec";
+    let urlFinal = SCRIPT_URL;
 
     if (idProyecto) {
-      urlFinal += "?id=" + encodeURIComponent(idProyecto);
+      urlFinal = SCRIPT_URL + "?id=" + encodeURIComponent(idProyecto);
     } else if (idCategoria) {
-      urlFinal += "?cat=" + encodeURIComponent(idCategoria);
+      urlFinal = SCRIPT_URL + "?cat=" + encodeURIComponent(idCategoria);
     }
 
-    document.getElementById('mi-catalogo').src = urlFinal;
-  </script>
-
-</body>
-</html>";
-
-    if (idProyecto) {
-      urlFinal += "?id=" + encodeURIComponent(idProyecto);
-    } else if (idCategoria) {
-      urlFinal += "?cat=" + encodeURIComponent(idCategoria);
-    }
-
-    document.getElementById('mi-catalogo').src = urlFinal;
+    document.getElementById("mi-catalogo").src = urlFinal;
   </script>
 
 </body>
