@@ -8,6 +8,7 @@
   <title>Animaciones LogoArtCR</title>
   <meta name="description" content="Ver Animaciones">
 
+  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Animaciones LogoArtCR">
   <meta property="og:description" content="Ver Animaciones">
@@ -67,6 +68,10 @@
 
     if (idAnimacion) {
       urlFinal = agregarParametro(urlFinal, 'id', idAnimacion);
+    }
+
+    if (idCategoria && !idAnimacion) {
+      urlFinal = agregarParametro(urlFinal, 'cat', idCategoria);
     }
 
     iframe.src = urlFinal;
