@@ -8,12 +8,11 @@
   <title>Animaciones LogoArtCR</title>
   <meta name="description" content="Ver Animaciones">
 
-  <!-- Open Graph (Vista previa en WhatsApp, Facebook, etc.) -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Animaciones LogoArtCR">
   <meta property="og:description" content="Ver Animaciones">
-  <meta property="og:url" content="https://logoartcr.github.io/Proyectos/">
-  <meta property="og:image" content="https://logoartcr.github.io/Proyectos/Faviconlogoart.png">
+  <meta property="og:url" content="https://logoartcr.github.io/Animaciones/">
+  <meta property="og:image" content="https://logoartcr.github.io/Animaciones/Faviconlogoart.png">
 
   <style>
     html, body {
@@ -40,14 +39,23 @@
   <iframe id="mi-catalogo" src=""></iframe>
 
   <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const idProyecto = (urlParams.get('id') || '').trim();
+    var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwKqLnGUFnwkJlU6gb11ARGuey9mGay3eDZNuguLO6-MLcX5aJHyIdpRvXGpIdk_O56/exec";
 
-    let urlFinal = "https://script.google.com/macros/s/AKfycbz-iMQcTNKq3ZZV9iEWVF3zupbRq8CFRcnPeiEA5T8heD3WLT9T4D9v4VZmFLrgNRi_/exec";
+    var urlParams = new URLSearchParams(window.location.search);
+    var idAnimacion = String(urlParams.get('id') || '').trim();
+    var idCategoria = String(urlParams.get('cat') || '').trim();
 
-    if (idProyecto) {
-      const conector = urlFinal.includes('?') ? '&' : '?';
-      urlFinal += conector + "id=" + encodeURIComponent(idProyecto);
+    var iframe = document.getElementById('mi-catalogo');
+
+    iframe.name = JSON.stringify({
+      id: idAnimacion,
+      cat: idCategoria
+    });
+
+    var urlFinal = SCRIPT_URL;
+
+    if (idAnimacion) {
+      urlFinal += "?id=" + encodeURIComponent(idAnimacion);
     }
 
     document.getElementById('mi-catalogo').src = urlFinal;
