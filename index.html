@@ -39,23 +39,25 @@
   <iframe id="mi-catalogo" src=""></iframe>
 
   <script>
-    var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz4pDgWOfCkaBO8IPBiSzz0QMUZ1UO184LhzCLIaOVP5NSga6GRLaRH4Dj4gcVLC6Or/exec";
+    const urlParams = new URLSearchParams(window.location.search);
 
-    var urlParams = new URLSearchParams(window.location.search);
-    var idAnimacion = String(urlParams.get('id') || '').trim();
-    var idCategoria = String(urlParams.get('cat') || '').trim();
+    const idProyecto = (urlParams.get('id') || '').trim();
+    const idCategoria = (urlParams.get('cat') || '').trim();
 
-    var iframe = document.getElementById('mi-catalogo');
+    let urlFinal = "https://script.google.com/macros/s/AKfycbzQ1o6c7bnWCmZLLn5XaFRonJNlEVCtI2n8FqaEJJqpMihVAgl_zrrkCSZaXUZX_c3o/exec";
 
-    iframe.name = JSON.stringify({
-      id: idAnimacion,
-      cat: idCategoria
-    });
+    const parametros = [];
 
-    var urlFinal = SCRIPT_URL;
+    if (idProyecto) {
+      parametros.push("id=" + encodeURIComponent(idProyecto));
+    }
 
-    if (idAnimacion) {
-      urlFinal += "?id=" + encodeURIComponent(idAnimacion);
+    if (idCategoria) {
+      parametros.push("cat=" + encodeURIComponent(idCategoria));
+    }
+
+    if (parametros.length > 0) {
+      urlFinal += "?" + parametros.join("&");
     }
 
     document.getElementById('mi-catalogo').src = urlFinal;
