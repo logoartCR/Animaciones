@@ -8,12 +8,12 @@
   <title>Animaciones LogoArtCR</title>
   <meta name="description" content="Ver Animaciones">
 
-  <!-- Open Graph -->
+  <!-- Open Graph (Vista previa en WhatsApp, Facebook, etc.) -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Animaciones LogoArtCR">
   <meta property="og:description" content="Ver Animaciones">
-  <meta property="og:url" content="https://logoartcr.github.io/Animaciones/">
-  <meta property="og:image" content="https://logoartcr.github.io/Animaciones/Faviconlogoart.png">
+  <meta property="og:url" content="https://logoartcr.github.io/Proyectos/">
+  <meta property="og:image" content="https://logoartcr.github.io/Proyectos/Faviconlogoart.png">
 
   <style>
     html, body {
@@ -40,41 +40,17 @@
   <iframe id="mi-catalogo" src=""></iframe>
 
   <script>
-    var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyccUG4k4TLGjrk41BGOXSOoIhMU4eoh2i--3Fm-6II-Bl95Dv8QtTnKtHfTudwSNiO/exec";
+    const urlParams = new URLSearchParams(window.location.search);
+    const idProyecto = (urlParams.get('id') || '').trim();
 
-    function obtenerParametro(nombre) {
-      var params = new URLSearchParams(window.location.search);
-      return String(params.get(nombre) || '').trim();
+    let urlFinal = "https://script.google.com/macros/s/AKfycbzdVb9aKMdXTXM0cJfUffQO5IJutSYWoaGiz8JzOcOB5vd6bKIgQ8NY1JOgvXIjeRmr/exec";
+
+    if (idProyecto) {
+      const conector = urlFinal.includes('?') ? '&' : '?';
+      urlFinal += conector + "id=" + encodeURIComponent(idProyecto);
     }
 
-    function agregarParametro(url, nombre, valor) {
-      if (!valor) return url;
-
-      var conector = url.indexOf('?') === -1 ? '?' : '&';
-      return url + conector + encodeURIComponent(nombre) + '=' + encodeURIComponent(valor);
-    }
-
-    var idAnimacion = obtenerParametro('id');
-    var idCategoria = obtenerParametro('cat');
-
-    var iframe = document.getElementById('mi-catalogo');
-
-    iframe.name = JSON.stringify({
-      id: idAnimacion,
-      cat: idCategoria
-    });
-
-    var urlFinal = SCRIPT_URL;
-
-    if (idAnimacion) {
-      urlFinal = agregarParametro(urlFinal, 'id', idAnimacion);
-    }
-
-    if (idCategoria && !idAnimacion) {
-      urlFinal = agregarParametro(urlFinal, 'cat', idCategoria);
-    }
-
-    iframe.src = urlFinal;
+    document.getElementById('mi-catalogo').src = urlFinal;
   </script>
 
 </body>
